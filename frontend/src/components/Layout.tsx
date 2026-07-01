@@ -8,7 +8,8 @@ import {
   LogOut, 
   User,
   Menu,
-  X
+  X,
+  PiggyBank
 } from 'lucide-react';
 
 const Layout: React.FC = () => {
@@ -83,6 +84,14 @@ const Layout: React.FC = () => {
           >
             <Wallet size={20} />
             <span>Ngân sách</span>
+          </NavLink>
+          <NavLink 
+            to="/savings" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+            onClick={closeMobileMenu}
+          >
+            <PiggyBank size={20} />
+            <span>Tiết kiệm</span>
           </NavLink>
         </nav>
 

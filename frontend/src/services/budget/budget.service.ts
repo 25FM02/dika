@@ -1,5 +1,5 @@
 import api from '../api';
-import { Budget, BudgetCreate, BudgetProgress } from './types';
+import type { Budget, BudgetCreate, BudgetProgress } from './types';
 
 export const BudgetService = {
   async getBudgetsProgress(month: number, year: number): Promise<BudgetProgress[]> {

@@ -1,5 +1,5 @@
 import api from '../api';
-import { Category, CategoryCreate } from './types';
+import type { Category, CategoryCreate } from './types';
 
 export const CategoryService = {
   async getCategories(): Promise<Category[]> {

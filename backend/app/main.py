@@ -4,7 +4,7 @@ import uvicorn
 
 from app.core.config import settings
 from app.core.database import create_db_and_tables
-from app.routers import auth, categories, transactions, budgets, statistics
+from app.routers import auth, categories, transactions, budgets, statistics, savings
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -29,6 +29,7 @@ app.include_router(categories.router, prefix=settings.API_V1_STR)
 app.include_router(transactions.router, prefix=settings.API_V1_STR)
 app.include_router(budgets.router, prefix=settings.API_V1_STR)
 app.include_router(statistics.router, prefix=settings.API_V1_STR)
+app.include_router(savings.router, prefix=settings.API_V1_STR)
 
 @app.on_event("startup")
 def on_startup():

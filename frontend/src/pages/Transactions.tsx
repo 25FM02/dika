@@ -6,14 +6,15 @@ import {
   ArrowUpRight, 
   ArrowDownLeft, 
   X,
-  AlertCircle
+  AlertCircle,
+  Download
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
 import { TransactionService } from '../services/transaction/transaction.service';
 import { CategoryService } from '../services/category/category.service';
-import { Transaction, TransactionCreate } from '../services/transaction/types';
-import { Category } from '../services/category/types';
+import type { Transaction, TransactionCreate } from '../services/transaction/types';
+import type { Category } from '../services/category/types';
 import { TRANSACTION_ERRORS } from '../services/transaction/constant';
 import { COMMON_CONFIRMATIONS } from '../constants/messages';
 
@@ -185,6 +186,32 @@ const Transactions: React.FC = () => {
     }
   };
 
+  const handleExportCSV = async () => {
+    try {
+      const filters: any = {};
+      if (filterType) filters.type = filterType;
+      if (filterCategory) filters.category_id = filterCategory;
+      if (startDate) filters.start_date = new Date(startDate).toISOString();
+      if (endDate) {
+        const d = new Date(endDate);
+        d.setHours(23, 59, 59, 999);
+        filters.end_date = d.toISOString();
+      }
+      
+      const blob = await TransactionService.exportTransactions(filters);
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `giao_dich_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode?.removeChild(link);
+    } catch (error) {
+      console.error('Lỗi khi xuất file CSV:', error);
+      alert('Không thể xuất báo cáo giao dịch.');
+    }
+  };
+
   const filteredCategoriesForForm = categories.filter(c => c.type === txType);
 
   return (
@@ -195,10 +222,16 @@ const Transactions: React.FC = () => {
           <h1>Danh sách giao dịch</h1>
           <p className="subtitle">Quản lý các khoản thu và chi tiêu hàng ngày</p>
         </div>
-        <button className="btn btn-primary" onClick={openAddModal}>
-          <Plus size={18} />
-          <span>Thêm giao dịch</span>
-        </button>
+        <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <button className="btn btn-secondary" onClick={handleExportCSV}>
+            <Download size={18} />
+            <span>Xuất CSV</span>
+          </button>
+          <button className="btn btn-primary" onClick={openAddModal}>
+            <Plus size={18} />
+            <span>Thêm giao dịch</span>
+          </button>
+        </div>
       </div>
 
       {/* Filters Bar */}

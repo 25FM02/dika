@@ -32,6 +32,55 @@ def get_transactions(
         limit=limit,
         offset=offset
     )
+import csv
+import io
+from fastapi.responses import StreamingResponse
+
+@router.get("/export")
+def export_transactions(
+    current_user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
+    type: Optional[str] = Query(None),
+    category_id: Optional[str] = Query(None),
+    start_date: Optional[datetime] = Query(None),
+    end_date: Optional[datetime] = Query(None)
+):
+    # Lấy toàn bộ giao dịch không giới hạn phân trang
+    txs = TransactionService.get_transactions(
+        session=session,
+        user_id=current_user.id,
+        type=type,
+        category_id=category_id,
+        start_date=start_date,
+        end_date=end_date,
+        limit=100000, # Giới hạn an toàn lớn
+        offset=0
+    )
+    
+    # Ghi dữ liệu vào CSV stream với UTF-8 BOM
+    output = io.StringIO()
+    output.write('\ufeff')
+    writer = csv.writer(output)
+    
+    writer.writerow(["ID Giao dịch", "Ngày", "Số tiền (VND)", "Loại", "Danh mục", "Ghi chú"])
+    
+    for tx in txs:
+        cat_name = tx.category.name if tx.category else "Không xác định"
+        writer.writerow([
+            tx.id,
+            tx.date.strftime("%Y-%m-%d %H:%M:%S"),
+            tx.amount,
+            "Thu nhập" if tx.type == "INCOME" else "Chi tiêu",
+            cat_name,
+            tx.description or ""
+        ])
+    
+    output.seek(0)
+    
+    headers = {
+        'Content-Disposition': 'attachment; filename="transactions.csv"'
+    }
+    return StreamingResponse(output, media_type="text/csv", headers=headers)
 
 @router.post("", response_model=TransactionRead, status_code=status.HTTP_201_CREATED)
 def create_transaction(

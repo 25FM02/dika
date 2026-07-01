@@ -27,9 +27,9 @@ import {
 import { StatisticsService } from '../services/statistics/statistics.service';
 import { BudgetService } from '../services/budget/budget.service';
 import { TransactionService } from '../services/transaction/transaction.service';
-import { Summary, CategoryDist, MonthlyTrend } from '../services/statistics/types';
-import { BudgetProgress } from '../services/budget/types';
-import { Transaction } from '../services/transaction/types';
+import type { Summary, CategoryDist, MonthlyTrend } from '../services/statistics/types';
+import type { BudgetProgress } from '../services/budget/types';
+import type { Transaction } from '../services/transaction/types';
 
 const getIconComponent = (name: string, color?: string) => {
   // Chuẩn hóa tên icon từ database sang PascalCase nếu cần

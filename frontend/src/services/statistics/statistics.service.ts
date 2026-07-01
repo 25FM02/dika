@@ -1,5 +1,5 @@
 import api from '../api';
-import { Summary, CategoryDist, MonthlyTrend } from './types';
+import type { Summary, CategoryDist, MonthlyTrend } from './types';
 
 export const StatisticsService = {
   async getSummary(month: number, year: number): Promise<Summary> {

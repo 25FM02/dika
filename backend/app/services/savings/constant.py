@@ -1,0 +1,7 @@
+GOAL_NOT_FOUND = "Không tìm thấy mục tiêu tiết kiệm."
+GOAL_ACCESS_DENIED = "Bạn không có quyền thao tác trên mục tiêu tiết kiệm này."
+INVALID_TARGET_AMOUNT = "Số tiền mục tiêu phải lớn hơn 0."
+INVALID_TARGET_DATE = "Ngày mục tiêu phải là một ngày trong tương lai."
+INVALID_TRANSACTION_AMOUNT = "Số tiền nạp hoặc rút phải lớn hơn 0."
+INSUFFICIENT_FUNDS = "Số dư ví chính không đủ để thực hiện tích lũy."
+EXCEEDS_SAVINGS = "Số tiền rút vượt quá số tiền hiện có trong mục tiêu tiết kiệm."

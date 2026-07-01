@@ -7,7 +7,7 @@ import {
 import * as Icons from 'lucide-react';
 
 import { BudgetService } from '../services/budget/budget.service';
-import { BudgetProgress, BudgetCreate } from '../services/budget/types';
+import type { BudgetProgress, BudgetCreate } from '../services/budget/types';
 import { BUDGET_ERRORS } from '../services/budget/constant';
 import { COMMON_CONFIRMATIONS } from '../constants/messages';
 

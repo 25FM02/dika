@@ -15,6 +15,7 @@ class User(SQLModel, table=True):
     categories: List["Category"] = Relationship(back_populates="user", cascade_delete=True)
     transactions: List["Transaction"] = Relationship(back_populates="user", cascade_delete=True)
     budgets: List["Budget"] = Relationship(back_populates="user", cascade_delete=True)
+    savings_goals: List["SavingsGoal"] = Relationship(back_populates="user", cascade_delete=True)
 
 class UserCreate(SQLModel):
     email: EmailStr
@@ -44,3 +45,4 @@ class TokenData(SQLModel):
 from app.services.category.models import Category
 from app.services.transaction.models import Transaction
 from app.services.budget.models import Budget
+from app.services.savings.models import SavingsGoal

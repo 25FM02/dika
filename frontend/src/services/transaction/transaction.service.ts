@@ -1,5 +1,5 @@
 import api from '../api';
-import { Transaction, TransactionCreate, TransactionFilters } from './types';
+import type { Transaction, TransactionCreate, TransactionFilters } from './types';
 
 export const TransactionService = {
   async getTransactions(filters?: TransactionFilters): Promise<Transaction[]> {
@@ -21,5 +21,13 @@ export const TransactionService = {
 
   async deleteTransaction(id: string): Promise<void> {
     await api.delete(`/transactions/${id}`);
+  },
+
+  async exportTransactions(filters?: TransactionFilters): Promise<Blob> {
+    const response = await api.get('/transactions/export', {
+      params: filters,
+      responseType: 'blob'
+    });
+    return response.data;
   }
 };

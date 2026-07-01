@@ -1,4 +1,4 @@
-import { Category } from '../category/types';
+import type { Category } from '../category/types';
 
 export interface Budget {
   id: string;
