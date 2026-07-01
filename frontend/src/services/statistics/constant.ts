@@ -1,0 +1,3 @@
+export const STATS_CONSTANTS = {
+  DEFAULT_TREND_LIMIT: 6
+};

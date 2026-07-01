@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.venv
+var/
+sdist/
+var/
+eggs/
+.eggs/
+parts/
+bin/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+shares/
+*.db
+*.db-journal
+*.sqlite
+
+# NodeJS / React
+node_modules/
+dist/
+dist-ssr/
+*.local
+.npm
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS Files
+.DS_Store
+Thumbs.db
