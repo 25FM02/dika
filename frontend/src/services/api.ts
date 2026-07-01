@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+let API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+
+// Tự động chuẩn hóa để thêm tiền tố /api nếu người dùng quên cấu hình trên Vercel
+if (API_URL) {
+  API_URL = API_URL.trim().replace(/\/$/, '');
+  if (!API_URL.endsWith('/api')) {
+    API_URL = API_URL + '/api';
+  }
+}
 
 const api = axios.create({
   baseURL: API_URL,
